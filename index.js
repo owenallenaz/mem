@@ -53,5 +53,9 @@ const mem = (fn, options = {}) => {
 module.exports = mem;
 
 module.exports.clear = fn => {
+	if (!cacheStore.has(fn)) {
+		throw new Error('Can\'t clear a function that was not memoized!');
+	}
+
 	cacheStore.get(fn).clear();
 };
